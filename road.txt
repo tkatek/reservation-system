@@ -1,0 +1,27 @@
+riad-booking/
+│
+├─ index.php               → Landing page, show rooms
+├─ room_details.php        → Show single room info + booking form
+├─ register.php            → User registration
+├─ login.php               → User login
+├─ verify_email.php        → Handle email verification
+├─ booking_confirmation.php → Show booking success
+├─ contact.php             → Contact form page
+│
+├─ admin/
+│   ├─ dashboard.php       → Admin main dashboard
+│   ├─ manage_rooms.php    → Add/Edit/Delete rooms
+│   ├─ manage_bookings.php → View/Confirm/Cancel bookings
+│   └─ manage_messages.php → View contact form messages
+│
+├─ includes/
+│   ├─ db.php              → Database connection
+│   ├─ functions.php       → Common PHP functions (sendEmail, checkAvailability)
+│   └─ header.php           → Header / nav bar include
+│
+├─ assets/
+│   ├─ css/
+│   ├─ js/
+│   └─ images/
+│
+└─ vendor/                 → PHPMailer or other libraries
