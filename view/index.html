@@ -3,33 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vista Suites - Luxury Hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">VISTA SUITES</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#rooms">Rooms & Suites</a></li>
+                <li><a href="#amenities">Amenities</a></li>
+                <li><a href="#offers">Special Offers</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#reservation" class="btn-reserve">Book Now</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">VISTA<br>SUITES</h1>
+            <p class="hero-subtitle">Urban escape. Breathtaking views.<br>Welcome to Vista Suites.</p>
+            <a href="#reservation" class="btn-primary">BOOK YOUR STAY</a>
+        </div>
+    </section>
 
+    <!-- Introduction -->
+    <section class="intro">
+        <div class="container">
+            <h2 class="section-title">LUXURY SUITES<br>FOR PEOPLE<br>ON THE GO</h2>
+            <div class="intro-content">
+                <p>What's special about your product, service, or company? Use this space to highlight the things that set you apart from your competition, whether it's a special feature, a unique philosophy, or awards and recognition that you have received. Think of this as your elevator pitch to get the reader's attention.</p>
+            </div>
+        </div>
+    </section>
 
+    <!-- Reservation Card -->
+    <section id="reservation" class="reservation-section">
+        <div class="container">
+            <div class="reservation-card">
+                <h3>Reserve Your Stay</h3>
+                <form id="reservationForm" class="reservation-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="checkIn">Check-In</label>
+                            <input type="date" id="checkIn" name="checkIn" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkOut">Check-Out</label>
+                            <input type="date" id="checkOut" name="checkOut" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guests">Guests</label>
+                            <select id="guests" name="guests" required>
+                                <option value="">Select</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomType">Room Type</label>
+                            <select id="roomType" name="roomType" required>
+                                <option value="">Select</option>
+                                <option value="luxury">Luxury Room</option>
+                                <option value="deluxe">Deluxe Room</option>
+                                <option value="studio">Studio Suite</option>
+                                <option value="executive">Executive Suite</option>
+                                <option value="premier">Premier Suite</option>
+                                <option value="penthouse">Penthouse Suite</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">Check Availability</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
+    <!-- Rooms & Suites -->
+    <section id="rooms" class="rooms">
+        <div class="container">
+            <h2 class="section-title">ROOMS & SUITES</h2>
+            <div class="rooms-grid">
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800')"></div>
+                    <div class="room-info">
+                        <div class="room-capacity">
+                            <span>MAX 2 GUESTS / 1 QUEEN OR</span>
+                            <span>2 SINGLE BEDS</span>
+                        </div>
+                        <h3 class="room-title">LUXURY ROOM</h3>
+                        <div class="room-price">
+                            <span>FROM $200/NIGHT</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800')"></div>
+                    <div class="room-info">
+                        <div class="room-capacity">
+                            <span>MAX 2 GUESTS / 1 QUEEN OR</span>
+                            <span>2 SINGLE BEDS</span>
+                        </div>
+                        <h3 class="room-title">DELUXE ROOM</h3>
+                        <div class="room-price">
+                            <span>FROM $250/NIGHT</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800')"></div>
+                    <div class="room-info">
+                        <div class="room-capacity">
+                            <span>MAX 2 GUESTS / 1 QUEEN OR</span>
+                            <span>1 KING BED</span>
+                        </div>
+                        <h3 class="room-title">STUDIO SUITE</h3>
+                        <div class="room-price">
+                            <span>FROM $300/NIGHT</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800')"></div>
+                    <div class="room-info">
+                        <div class="room-capacity">
+                            <span>MAX 2 GUESTS / 1 KING BED OR</span>
+                            <span>2 SINGLE BEDS</span>
+                        </div>
+                        <h3 class="room-title">EXECUTIVE SUITE</h3>
+                        <div class="room-price">
+                            <span>FROM $350/NIGHT</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800')"></div>
+                    <div class="room-info">
+                        <div class="room-capacity">
+                            <span>MAX 4 GUESTS / 2 QUEEN BEDS</span>
+                        </div>
+                        <h3 class="room-title">PREMIER SUITE</h3>
+                        <div class="room-price">
+                            <span>FROM $450/NIGHT</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="room-card">
+                    <div class="room-image" style="background-image: url('https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800')"></div>
+                    <div class="room-info">
+                        <div class="room-capacity">
+                            <span>MAX 4 GUESTS / 2 KING BEDS</span>
+                        </div>
+                        <h3 class="room-title">PENTHOUSE SUITE</h3>
+                        <div class="room-price">
+                            <span>FROM $600/NIGHT</span>
+                            <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Amenities -->
+    <section id="amenities" class="amenities">
+        <div class="container">
+            <h2 class="section-title">AMENITIES</h2>
+            <div class="amenities-grid">
+                <div class="amenity-card">
+                    <div class="amenity-image" style="background-image: url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800')"></div>
+                    <div class="amenity-content">
+                        <h3>24/7 CONCIERGE</h3>
+                        <p>Support your header with a short one-liner</p>
+                    </div>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-image" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800')"></div>
+                    <div class="amenity-content">
+                        <h3>ROOFTOP LOUNGE</h3>
+                        <p>Support your header with a short one-liner</p>
+                    </div>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-image" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800')"></div>
+                    <div class="amenity-content">
+                        <h3>RESTAURANT</h3>
+                        <p>Support your header with a short one-liner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Awards -->
+    <section class="awards">
+        <div class="container">
+            <h2 class="section-title">AWARDS</h2>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <h3>Excellence in Guest Service</h3>
+                    <p>HOSPITALITY AWARDS 2030</p>
+                </div>
+                <div class="award-card">
+                    <h3>Ranked #3</h3>
+                    <p>CITY GUIDE'S TOP 50 HOTELS 2030</p>
+                </div>
+                <div class="award-card">
+                    <h3>Best Urban Retreat</h3>
+                    <p>CITY TRAVEL AWARDS</p>
+                </div>
+                <div class="award-card">
+                    <h3>Traveler's Choice for City Escape</h3>
+                    <p>GLOBAL GETAWAY AWARDS 2030</p>
+                </div>
+                <div class="award-card">
+                    <h3>Top Boutique Hotel Experience</h3>
+                    <p>TRAVEL MAGAZINE 2030</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Special Offers -->
+    <section id="offers" class="offers">
+        <div class="container">
+            <h2 class="section-title">SPECIAL OFFERS</h2>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1555244162-803834f70033?w=800')"></div>
+                    <div class="offer-content">
+                        <h3>DINE & STAY PACKAGE</h3>
+                        <p>List your offers, promos, or special membership privileges and perks here to entice people to book your property.</p>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800')"></div>
+                    <div class="offer-content">
+                        <h3>CITY TOUR PACKAGE</h3>
+                        <p>List your offers, promos, or special membership privileges and perks here to entice people to book your property.</p>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800')"></div>
+                    <div class="offer-content">
+                        <h3>HOTEL & FLIGHT PACKAGE</h3>
+                        <p>List your offers, promos, or special membership privileges and perks here to entice people to book your property.</p>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800')"></div>
+                    <div class="offer-content">
+                        <h3>WELLNESS WEEKEND</h3>
+                        <p>List your offers, promos, or special membership privileges and perks here to entice people to book your property.</p>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800')"></div>
+                    <div class="offer-content">
+                        <h3>MILESTONE PACKAGE</h3>
+                        <p>List your offers, promos, or special membership privileges and perks here to entice people to book your property.</p>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800')"></div>
+                    <div class="offer-content">
+                        <h3>BUSINESS TRIP SPECIAL</h3>
+                        <p>List your offers, promos, or special membership privileges and perks here to entice people to book your property.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">WHAT OUR<br>GUESTS SAY</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"Boost your product and service's credibility by adding testimonials from your clients. People love recommendations so feedback from others who've tried it is invaluable."</p>
+                    <span class="author">— CARLY FISHER</span>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Testimonials are short quotes from people who love your brand. It's a great way to convince customers to try your services."</p>
+                    <span class="author">— NEIL TRAN</span>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Boost your product and service's credibility by adding testimonials from your clients. People love recommendations so feedback from others who've tried it is invaluable."</p>
+                    <span class="author">— JIN AE SOO</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-overlay"></div>
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>BESPOKE<br>HOSPITALITY</h2>
+                    <div class="info-block">
+                        <h3>LOCATION</h3>
+                        <p>123 Anywhere St, Any City ST 12345</p>
+                        <p>Tel: +123-456-7890</p>
+                        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3d55585151527d4f585c5151445a4f585c494e544958135e5250">[email&#160;protected]</a></p>
+                    </div>
+                    <div class="info-block">
+                        <h3>BUSINESS HOURS</h3>
+                        <p>Monday: 8am – 7pm</p>
+                        <p>Tuesday: 8am – 5pm</p>
+                        <p>Wednesday: 8am – 5pm</p>
+                        <p>Thursday: 8am – 7pm</p>
+                        <p>Friday: 8am – 5pm</p>
+                    </div>
+                    <div class="info-block">
+                        <h3>GET SOCIAL</h3>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Tumblr">t</a>
+                            <a href="#" aria-label="Messenger">m</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="6" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Vista Suites. All rights reserved. | Grand City - Luxury Business Hotel</p>
+        </div>
+    </footer>
+   <script src="script.js"></script>
 
-
-
-
-
-
-
-
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
