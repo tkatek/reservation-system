@@ -94,7 +94,7 @@ a{
     height: 100%;
     width: 100%;
     background: linear-gradient(to bottom ,#052654d0, #9cb9e2d0);
-    display: none;
+    /* display: none; */
 
 }
 .layers{
@@ -253,8 +253,10 @@ a{
 }
 .room{
     height: 100%;
+
     width: 100%;
     position: relative;
+    display: none;
     background: linear-gradient(to bottom ,#052654d0, #9cb9e2d0);
 }
 .panel{
