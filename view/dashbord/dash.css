@@ -65,6 +65,7 @@ a{
     width: 100%;
     list-style: none;
         padding-top: 20px;
+        padding-left: 0px;
 
 }
 .sidebar-menu li{
@@ -240,7 +241,7 @@ a{
 .side button{
     height: 40px;
     width: 140px;
-    border-radius: 20px;
+    border-radius: 20px; 
     border: solid #000000d2 1px;
     background-color: #ffffff;
     color: balck;
@@ -248,12 +249,68 @@ a{
     text-align: center;
     font-size: 16px;
     font-weight: 400;
-    transition: all 0.3s ease-in-out;
     text-transform: uppercase;
 }
 .room{
     height: 100%;
     width: 100%;
+    position: relative;
     background: linear-gradient(to bottom ,#052654d0, #9cb9e2d0);
 }
+.panel{
+    position: absolute;
+    bottom: 80px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    height: 190px;
+    width: 60px;
+    background-color: rgba(230, 230, 230, 0.323);
+    backdrop-filter: blur(10px);
+    border-radius: 60px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 25px;
+    color: black;
+}
+.panel button{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.958);
+    cursor: pointer;
+}
+.menu{
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    bottom: 20px;
+    right: 26px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.973);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+.x1{
+    height: 2px;
+    width: 25px;
+    background: black;
+    top: 14px;
+    border-radius: 5px;
+    left: 10px;
+
+
+}
+.x2{
+    height: 2px;
+    width: 20px;
+    background: black;
+   
+}
+
 
