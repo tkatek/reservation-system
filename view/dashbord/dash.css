@@ -94,7 +94,7 @@ a{
     height: 100%;
     width: 100%;
     background: linear-gradient(to bottom ,#052654d0, #9cb9e2d0);
-    /* display: none; */
+    display: none;
 
 }
 .layers{
@@ -253,10 +253,14 @@ a{
 }
 .room{
     height: 100%;
-
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
     width: 100%;
     position: relative;
     display: none;
+
     background: linear-gradient(to bottom ,#052654d0, #9cb9e2d0);
 }
 .panel{
@@ -267,14 +271,17 @@ a{
     gap: 10px;
     height: 190px;
     width: 60px;
-    background-color: rgba(230, 230, 230, 0.323);
+    background-color: rgba(255, 255, 255, 0.779);
     backdrop-filter: blur(10px);
     border-radius: 60px;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     font-size: 25px;
+    z-index: 9;
     color: black;
+        box-shadow: rgba(166, 162, 162, 0.453) 5px 5px 5px;
+
 }
 .panel button{
     height: 50px;
@@ -283,36 +290,76 @@ a{
     background: rgba(255, 255, 255, 0.958);
     cursor: pointer;
 }
-.menu{
-    position: absolute;
-    height: 45px;
-    width: 45px;
-    bottom: 20px;
-    right: 26px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.973);
-    cursor: pointer;
+.collection{
+     /* background-color: rgb(230, 230, 230);
+    backdrop-filter: blur(10px); */
+    height: 80vh;
+    width: 90%;
+    border-radius: 20px;
+    /* box-shadow: rgba(37, 36, 36, 0.453) 5px 5px 5px; */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     flex-direction: column;
-    gap: 5px;
-}
-.x1{
-    height: 2px;
-    width: 25px;
-    background: black;
-    top: 14px;
-    border-radius: 5px;
-    left: 10px;
-
+    /* gap: px; */
+    overflow-y: auto;
 
 }
-.x2{
-    height: 2px;
-    width: 20px;
-    background: black;
-   
+.line1{
+    height: 40%;
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 
+
+
+ .messages-page {display:flex; flex-direction:column; height:100vh; padding:20px;}
+    
+    /* Header */
+    .messages-header {
+        display:flex; justify-content: space-between; align-items:center;
+        margin-bottom:15px;
+    }
+    .messages-header h2 {margin:0;}
+    .messages-header input {
+        padding:8px 12px; border-radius:5px; border:1px solid #ccc; width:200px;
+    }
+    
+    /* Container */
+    .messages-container {display:flex; flex:1; border-radius:10px; overflow:hidden; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+    
+    /* Left list */
+    .messages-list {
+        width:35%; border-right:1px solid #e0e0e0; overflow-y:auto;
+    }
+    .message-item {
+        display:flex; align-items:center; padding:12px 15px; border-bottom:1px solid #f0f0f0; cursor:pointer;
+        transition: background 0.2s;
+    }
+    .message-item:hover {background:#f0f0f0;}
+    .message-item.new {font-weight:bold;}
+    .avatar {
+        width:40px; height:40px; border-radius:50%; background:#ccc; display:flex; justify-content:center; align-items:center; margin-right:10px;
+        font-weight:bold; color:#fff;
+    }
+    .info h4 {margin:0; font-size:14px;}
+    .info p {margin:2px 0 0 0; font-size:12px; color:#666;}
+    .date {margin-left:auto; font-size:12px; color:#999;}
+    
+    /* Right preview */
+    .message-preview {flex:1; padding:20px; display:flex; flex-direction:column;}
+    .message-preview h3 {margin-top:0;}
+    .message-preview p {margin:5px 0;}
+    .message-text {background:#f0f0f0; padding:10px; border-radius:5px; margin:10px 0; flex:1;
+    }
+    .reply-box {display:flex; margin-top:10px;}
+    .reply-box textarea {flex:1; padding:8px; border-radius:5px; border:1px solid #ccc; resize:none;}
+    .reply-box button {
+        padding:10px 15px; margin-left:10px; border:none; border-radius:5px; background:#4CAF50; color:#fff; cursor:pointer;
+        transition: background 0.2s;
+    }
+    .reply-box button:hover {background:#45a049;}

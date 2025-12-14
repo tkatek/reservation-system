@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Suites Dashboard</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0a2c4e;
+            --secondary-color: #c19a6b;
+            --light-bg: #f5f7fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+        }
+        
+        /* Navbar */
+        .navbar-custom {
+            background: linear-gradient(to right, var(--primary-color), #1a3a5f);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logout-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: white;
+            border-right: 1px solid #ddd;
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background: #f0f7ff;
+            color: var(--primary-color);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .add-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .custom-table th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .custom-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .custom-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Action Buttons */
+        .btn-action {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin: 2px;
+        }
+        
+        .btn-confirm {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-edit {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .btn-read {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background: linear-gradient(to right, var(--primary-color), #1a3a5f);
+            color: white;
+            padding: 15px;
+        }
+        
+        .card-body {
+            padding: 15px;
+        }
+        
+        .room-info, .staff-info {
+            margin: 10px 0;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-label {
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .info-value {
+            color: #333;
+        }
+        
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Check-in/out History */
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .history-info {
+            flex: 1;
+        }
+        
+        .history-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+            }
+            
+            .menu-item {
+                display: inline-flex;
+                padding: 10px 15px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar-custom">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="navbar-brand">VISTA SUITES DASHBOARD</div>
+            <div class="user-info">
+                <span>Admin <i class="fas fa-user-circle"></i></span>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="menu-item active" data-section="reservations">
+                <i class="fas fa-calendar-check"></i>
+                <span>Reservations</span>
+            </div>
+            <div class="menu-item" data-section="rooms">
+                <i class="fas fa-bed"></i>
+                <span>Room Management</span>
+            </div>
+            <div class="menu-item" data-section="staff">
+                <i class="fas fa-users"></i>
+                <span>Staff</span>
+            </div>
+            <div class="menu-item" data-section="messages">
+                <i class="fas fa-envelope"></i>
+                <span>Messages</span>
+                <span id="unreadBadge" class="badge bg-danger ms-2" style="display: none;">0</span>
+            </div>
+            <div class="menu-item" data-section="history">
+                <i class="fas fa-history"></i>
+                <span>Check-out History</span>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Reservations Section -->
+            <div id="reservations" class="section active">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Reservations</h2>
+                    <button class="add-btn" id="addReservationBtn">
+                        <i class="fas fa-plus"></i> Add Reservation
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservationsTable">
+                            <!-- Reservations will be populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Room Management Section -->
+            <div id="rooms" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Room Management</h2>
+                    <button class="add-btn" id="addRoomBtn">
+                        <i class="fas fa-plus"></i> Add Room
+                    </button>
+                </div>
+                
+                <div class="cards-grid" id="roomsGrid">
+                    <!-- Rooms will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- Staff Section -->
+            <div id="staff" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Staff Management</h2>
+                    <button class="add-btn" id="addStaffBtn">
+                        <i class="fas fa-plus"></i> Add Staff
+                    </button>
+                </div>
+                
+                <div class="cards-grid" id="staffGrid">
+                    <!-- Staff will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- Messages Section -->
+            <div id="messages" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Messages</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messagesTable">
+                            <!-- Messages will be populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div id="history" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Check-out History</h2>
+                </div>
+                
+                <div id="historyList">
+                    <!-- History items will be populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Room Modal -->
+    <div class="modal-overlay" id="roomModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add New Room</h3>
+                <button class="modal-close" id="closeRoomModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="roomForm">
+                    <div class="form-group">
+                        <label class="form-label">Room Number</label>
+                        <input type="text" class="form-control" id="roomNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Room Type</label>
+                        <select class="form-control" id="roomType" required>
+                            <option value="">Select Type</option>
+                            <option value="Deluxe Suite">Deluxe Suite</option>
+                            <option value="Executive Suite">Executive Suite</option>
+                            <option value="Presidential Suite">Presidential Suite</option>
+                            <option value="Family Suite">Family Suite</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Price per Night ($)</label>
+                        <input type="number" class="form-control" id="roomPrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select class="form-control" id="roomStatus" required>
+                            <option value="Available">Available</option>
+                            <option value="Booked">Booked</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelRoomBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveRoomBtn">Save Room</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Staff Modal -->
+    <div class="modal-overlay" id="staffModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Staff Member</h3>
+                <button class="modal-close" id="closeStaffModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="staffForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="staffName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Position</label>
+                        <select class="form-control" id="staffPosition" required>
+                            <option value="">Select Position</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Receptionist">Receptionist</option>
+                            <option value="Housekeeping">Housekeeping</option>
+                            <option value="Chef">Chef</option>
+                            <option value="Security">Security</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="staffEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="staffPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Responsibilities</label>
+                        <textarea class="form-control" id="staffResponsibilities" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelStaffBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveStaffBtn">Save Staff</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal-overlay" id="messageModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Message</h3>
+                <button class="modal-close" id="closeMessageModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="messageContent">
+                    <!-- Message content will be populated by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeMessageBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Data
+        let reservations = [
+            { id: 1, name: "John Doe", email: "john@example.com", checkIn: "12/12/2025", checkOut: "20/12/2025", status: "pending" },
+            { id: 2, name: "Jane Smith", email: "jane@example.com", checkIn: "15/12/2025", checkOut: "22/12/2025", status: "confirmed" },
+            { id: 3, name: "Mike Johnson", email: "mike@example.com", checkIn: "18/12/2025", checkOut: "25/12/2025", status: "pending" }
+        ];
+
+        let rooms = [
+            { id: 1, number: "101", type: "Deluxe Suite", price: "$300/night", status: "Available", features: ["King Bed", "Ocean View"] },
+            { id: 2, number: "102", type: "Executive Suite", price: "$450/night", status: "Booked", features: ["Two King Beds", "Jacuzzi"] },
+            { id: 3, number: "201", type: "Presidential Suite", price: "$800/night", status: "Available", features: ["Private Pool", "Panoramic View"] }
+        ];
+
+        let staff = [
+            { id: 1, name: "Ahmed Ali", position: "Manager", email: "ahmed@vistasuites.com", phone: "+212 600-123456", responsibilities: "Overall management, Staff supervision" },
+            { id: 2, name: "Fatima Zohra", position: "Receptionist", email: "fatima@vistasuites.com", phone: "+212 600-654321", responsibilities: "Guest check-in/out, Reservations" },
+            { id: 3, name: "Karim Ben", position: "Housekeeping", email: "karim@vistasuites.com", phone: "+212 600-789012", responsibilities: "Room cleaning, Maintenance" }
+        ];
+
+        let messages = [
+            { id: 1, name: "Ahmed Boukhari", email: "ahmed@gmail.com", subject: "Reservation Inquiry", message: "Hello, I want to know if room 5 is available next weekend.", date: "12 min ago", read: false },
+            { id: 2, name: "Sarah Johnson", email: "sarah@example.com", subject: "Room availability", message: "Do you have any available rooms for this weekend?", date: "1 hour ago", read: true },
+            { id: 3, name: "Mohamed Ali", email: "mohamed@example.com", subject: "General Question", message: "What time is check-in and check-out?", date: "2 hours ago", read: false }
+        ];
+
+        let history = [
+            { id: 1, name: "John Doe", room: "101", checkIn: "05/12/2025", checkOut: "12/12/2025", amount: "$2,100" },
+            { id: 2, name: "Jane Smith", room: "102", checkIn: "01/12/2025", checkOut: "08/12/2025", amount: "$3,150" },
+            { id: 3, name: "Robert Brown", room: "201", checkIn: "25/11/2025", checkOut: "02/12/2025", amount: "$5,600" }
+        ];
+
+        // DOM Elements
+        const sections = document.querySelectorAll('.section');
+        const menuItems = document.querySelectorAll('.menu-item');
+        const unreadBadge = document.getElementById('unreadBadge');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateReservationsTable();
+            updateRoomsGrid();
+            updateStaffGrid();
+            updateMessagesTable();
+            updateHistoryList();
+            updateUnreadBadge();
+            setupEventListeners();
+        });
+
+        // Update Reservations Table
+        function updateReservationsTable() {
+            const table = document.getElementById('reservationsTable');
+            table.innerHTML = '';
+            
+            reservations.forEach(reservation => {
+                const statusClass = `status-${reservation.status}`;
+                const row = `
+                    <tr>
+                        <td>${reservation.name}</td>
+                        <td>${reservation.email}</td>
+                        <td>${reservation.checkIn}</td>
+                        <td>${reservation.checkOut}</td>
+                        <td><span class="status-badge ${statusClass}">${reservation.status}</span></td>
+                        <td>
+                            <button class="btn-action btn-confirm" onclick="confirmReservation(${reservation.id})">Confirm</button>
+                            <button class="btn-action btn-cancel" onclick="cancelReservation(${reservation.id})">Cancel</button>
+                        </td>
+                    </tr>
+                `;
+                table.innerHTML += row;
+            });
+        }
+
+        // Update Rooms Grid
+        function updateRoomsGrid() {
+            const grid = document.getElementById('roomsGrid');
+            grid.innerHTML = '';
+            
+            rooms.forEach(room => {
+                const card = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Room ${room.number}</h4>
+                            <small>${room.type}</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="room-info">
+                                <div class="info-item">
+                                    <span class="info-label">Price:</span>
+                                    <span class="info-value">${room.price}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Status:</span>
+                                    <span class="info-value">${room.status}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Features:</span>
+                                    <span class="info-value">${room.features.join(', ')}</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-action btn-edit" onclick="editRoom(${room.id})">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn-action btn-cancel" onclick="deleteRoom(${room.id})">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Update Staff Grid
+        function updateStaffGrid() {
+            const grid = document.getElementById('staffGrid');
+            grid.innerHTML = '';
+            
+            staff.forEach(staffMember => {
+                const card = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>${staffMember.name}</h4>
+                            <small>${staffMember.position}</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="staff-info">
+                                <div class="info-item">
+                                    <span class="info-label">Email:</span>
+                                    <span class="info-value">${staffMember.email}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Phone:</span>
+                                    <span class="info-value">${staffMember.phone}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Responsibilities:</span>
+                                    <span class="info-value">${staffMember.responsibilities}</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-action btn-edit" onclick="editStaff(${staffMember.id})">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn-action btn-cancel" onclick="deleteStaff(${staffMember.id})">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Update Messages Table
+        function updateMessagesTable() {
+            const table = document.getElementById('messagesTable');
+            table.innerHTML = '';
+            
+            messages.forEach(msg => {
+                const row = `
+                    <tr>
+                        <td>${msg.name}</td>
+                        <td>${msg.email}</td>
+                        <td>${msg.subject}</td>
+                        <td>${msg.date}</td>
+                        <td>
+                            <button class="btn-action btn-read" onclick="readMessage(${msg.id})">
+                                <i class="fas fa-envelope-open"></i> Read
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                table.innerHTML += row;
+            });
+        }
+
+        // Update History List
+        function updateHistoryList() {
+            const list = document.getElementById('historyList');
+            list.innerHTML = '';
+            
+            history.forEach(item => {
+                const historyItem = `
+                    <div class="history-item">
+                        <div class="history-info">
+                            <h5>${item.name}</h5>
+                            <p>Room ${item.room} • Check-in: ${item.checkIn} • Check-out: ${item.checkOut}</p>
+                            <small>Total: ${item.amount}</small>
+                        </div>
+                        <div class="history-actions">
+                            <button class="btn-action btn-edit" onclick="viewDetails(${item.id})">
+                                <i class="fas fa-eye"></i> Details
+                            </button>
+                        </div>
+                    </div>
+                `;
+                list.innerHTML += historyItem;
+            });
+        }
+
+        // Update Unread Badge
+        function updateUnreadBadge() {
+            const unreadCount = messages.filter(msg => !msg.read).length;
+            if (unreadCount > 0) {
+                unreadBadge.textContent = unreadCount;
+                unreadBadge.style.display = 'inline-block';
+            } else {
+                unreadBadge.style.display = 'none';
+            }
+        }
+
+        // Navigation
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.dataset.section;
+                
+                // Update active menu item
+                menuItems.forEach(menu => menu.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected section
+                sections.forEach(section => section.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Reservation Actions
+        function confirmReservation(id) {
+            const reservation = reservations.find(r => r.id === id);
+            if (reservation) {
+                reservation.status = 'confirmed';
+                updateReservationsTable();
+                alert(`Reservation #${id} confirmed!`);
+            }
+        }
+
+        function cancelReservation(id) {
+            if (confirm('Are you sure you want to cancel this reservation?')) {
+                const index = reservations.findIndex(r => r.id === id);
+                if (index !== -1) {
+                    // Move to history
+                    const reservation = reservations[index];
+                    history.unshift({
+                        id: history.length + 1,
+                        name: reservation.name,
+                        room: "101", // You would get this from actual data
+                        checkIn: reservation.checkIn,
+                        checkOut: reservation.checkOut,
+                        amount: "$1,200" // You would calculate this
+                    });
+                    
+                    reservations.splice(index, 1);
+                    updateReservationsTable();
+                    updateHistoryList();
+                    alert('Reservation cancelled and moved to history.');
+                }
+            }
+        }
+
+        // Room Actions
+        function editRoom(id) {
+            const room = rooms.find(r => r.id === id);
+            if (room) {
+                alert(`Edit room ${room.number} - ${room.type}`);
+                // In a real app, open edit modal with room data
+            }
+        }
+
+        function deleteRoom(id) {
+            if (confirm('Are you sure you want to delete this room?')) {
+                const index = rooms.findIndex(r => r.id === id);
+                if (index !== -1) {
+                    rooms.splice(index, 1);
+                    updateRoomsGrid();
+                    alert('Room deleted successfully!');
+                }
+            }
+        }
+
+        // Staff Actions
+        function editStaff(id) {
+            const staffMember = staff.find(s => s.id === id);
+            if (staffMember) {
+                alert(`Edit staff: ${staffMember.name}`);
+                // In a real app, open edit modal with staff data
+            }
+        }
+
+        function deleteStaff(id) {
+            if (confirm('Are you sure you want to delete this staff member?')) {
+                const index = staff.findIndex(s => s.id === id);
+                if (index !== -1) {
+                    staff.splice(index, 1);
+                    updateStaffGrid();
+                    alert('Staff member deleted successfully!');
+                }
+            }
+        }
+
+        // Message Actions
+        function readMessage(id) {
+            const message = messages.find(m => m.id === id);
+            if (message) {
+                // Mark as read
+                message.read = true;
+                updateUnreadBadge();
+                
+                // Show message in modal
+                document.getElementById('messageContent').innerHTML = `
+                    <h4>${message.subject}</h4>
+                    <p><strong>From:</strong> ${message.name} (${message.email})</p>
+                    <p><strong>Date:</strong> ${message.date}</p>
+                    <hr>
+                    <p>${message.message}</p>
+                `;
+                document.getElementById('messageModal').classList.add('active');
+            }
+        }
+
+        // View History Details
+        function viewDetails(id) {
+            const item = history.find(h => h.id === id);
+            if (item) {
+                alert(`Details for ${item.name}\nRoom: ${item.room}\nCheck-in: ${item.checkIn}\nCheck-out: ${item.checkOut}\nTotal: ${item.amount}`);
+            }
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    alert('Logged out successfully!');
+                    // In real app, redirect to login page
+                }
+            });
+
+            // Add Reservation
+            document.getElementById('addReservationBtn').addEventListener('click', function() {
+                alert('Add reservation form would open here.');
+                // In real app, open reservation modal
+            });
+
+            // Add Room
+            document.getElementById('addRoomBtn').addEventListener('click', function() {
+                document.getElementById('roomModal').classList.add('active');
+                document.getElementById('roomForm').reset();
+            });
+
+            // Add Staff
+            document.getElementById('addStaffBtn').addEventListener('click', function() {
+                document.getElementById('staffModal').classList.add('active');
+                document.getElementById('staffForm').reset();
+            });
+
+            // Save Room
+            document.getElementById('saveRoomBtn').addEventListener('click', function() {
+                const roomNumber = document.getElementById('roomNumber').value;
+                const roomType = document.getElementById('roomType').value;
+                const roomPrice = document.getElementById('roomPrice').value;
+                const roomStatus = document.getElementById('roomStatus').value;
+                
+                if (roomNumber && roomType && roomPrice) {
+                    const newRoom = {
+                        id: rooms.length + 1,
+                        number: roomNumber,
+                        type: roomType,
+                        price: `$${roomPrice}/night`,
+                        status: roomStatus,
+                        features: ["Standard"]
+                    };
+                    
+                    rooms.push(newRoom);
+                    updateRoomsGrid();
+                    document.getElementById('roomModal').classList.remove('active');
+                    alert('Room added successfully!');
+                } else {
+                    alert('Please fill all required fields.');
+                }
+            });
+
+            // Save Staff
+            document.getElementById('saveStaffBtn').addEventListener('click', function() {
+                const staffName = document.getElementById('staffName').value;
+                const staffPosition = document.getElementById('staffPosition').value;
+                const staffEmail = document.getElementById('staffEmail').value;
+                const staffPhone = document.getElementById('staffPhone').value;
+                const staffResponsibilities = document.getElementById('staffResponsibilities').value;
+                
+                if (staffName && staffPosition && staffEmail && staffPhone) {
+                    const newStaff = {
+                        id: staff.length + 1,
+                        name: staffName,
+                        position: staffPosition,
+                        email: staffEmail,
+                        phone: staffPhone,
+                        responsibilities: staffResponsibilities || "Not specified"
+                    };
+                    
+                    staff.push(newStaff);
+                    updateStaffGrid();
+                    document.getElementById('staffModal').classList.remove('active');
+                    alert('Staff member added successfully!');
+                } else {
+                    alert('Please fill all required fields.');
+                }
+            });
+
+            // Modal Close Buttons
+            document.getElementById('closeRoomModal').addEventListener('click', function() {
+                document.getElementById('roomModal').classList.remove('active');
+            });
+
+            document.getElementById('closeStaffModal').addEventListener('click', function() {
+                document.getElementById('staffModal').classList.remove('active');
+            });
+
+            document.getElementById('closeMessageModal').addEventListener('click', function() {
+                document.getElementById('messageModal').classList.remove('active');
+            });
+
+            document.getElementById('closeMessageBtn').addEventListener('click', function() {
+                document.getElementById('messageModal').classList.remove('active');
+            });
+
+            document.getElementById('cancelRoomBtn').addEventListener('click', function() {
+                document.getElementById('roomModal').classList.remove('active');
+            });
+
+            document.getElementById('cancelStaffBtn').addEventListener('click', function() {
+                document.getElementById('staffModal').classList.remove('active');
+            });
+
+            // Close modals when clicking outside
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
